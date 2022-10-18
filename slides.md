@@ -93,10 +93,12 @@ h1 {
 ```
 <br>
 
-相比于MultiRepo（一个项目一个仓库），Monorepo只会创建一个仓库，并在这个一个仓库里管理着多个项目代码.每一个项目有它单独的功能与作用，多个项目之间可能会有引用关系，最后通过最上层的项目进行统一管理
+<div v-click>
+相比于Polyrepo（一个项目一个仓库），Monorepo只会创建一个仓库，并在这个一个仓库里管理着多个项目代码。每一个项目有它单独的功能与作用，多个项目之间可能会有引用关系，最后通过最上层的项目进行统一管理
+</div>
 
 <br>
-哪些开源库在用？
+🤔哪些开源库在用？
 <br>
 
 [Vue3](https://github.com/vuejs/core)<br>
@@ -116,35 +118,68 @@ Monorepo不是简单地code colocation，一个Monorepo项目需要处理好子�
 
 <br>
 
-传统的Polyrepo，每个项目都对应单独的一个代码仓库，这样的开发方式带来的弊端有：
-- <Link to="6">代码复用</Link>
-- <Link to="8">版本管理</Link>
-- <Link to="9">项目基建</Link>
+<div flex="~" justify-between>
+  <img block border="rounded" w="3/5" src="/assets/imgs/pic_polyrepo.jpg" />
+
+  <div v-click>
+    <div p="1" bg="sky-300 opacity-50" rounded font="mono">
+      传统的Polyrepo方式带来的问题：
+    </div>
+    <br>
+    <ul>
+      <li><Link to="6">代码难以复用</Link></li>
+      <li><Link to="8">版本管理复杂</Link></li>
+      <li><Link to="9">项目基建混乱</Link></li>
+    </ul>
+  </div>
+  
+</div>
 
 <br>
 
-<Link to="10">Why Monorepo ?</Link>
-<br>
-<br>
-<Link to="11">Monorepo tool</Link>
+<!-- ./components/Footer.vue -->
+<Footer lName="Why Monorepo ?" lTo="10" rName="Monorepo tool" rTo="11" />
 
 
 ---
 
-# 代码复用
+# 代码难以复用
 
 <br>
-在维护多个项目的时候，有一些逻辑很有可能会被多次用到.
 
-- 基础的组件
-- 工具函数
-- 配置文件
+<div flex >
+  <div w="2/3">
+    <div>在维护多个项目的时候，有一些逻辑很有可能会被多次用到</div>
+    <br>
+    <ul>
+      <li>基础的组件</li>
+      <li>工具函数</li>
+      <li>配置文件</li>
+    </ul>
+    <br>
+    <div>
+      常规方法：<span font="600" text-4xl>copy!</span>
+      <div mt="4">
+        ⚠️产生的问题:
+        <div>如果代码出现bug，改好之后就得去所有使用的地方替换成最新版本代码</div>
+      </div>
+    </div>
+  </div>
+  <div w="60" relative>
+      <img w="60" h="60" absolute top-0 left-0 v-click-hide block rounded-10 src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F03%2F63%2F91%2F5bdcf9c61d377_610.jpg&refer=http%3A%2F%2Fpic.51yuansu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1668670887&t=e1929c520859f4294aaac3fb8bdbb400" />
+    <div v-click>
+        <div inline-block pl="3" pt="3" bg="yellow-300 opacity-50" rounded-t>💡解决方案：</div>
+      <div px="3" pt="2" pb="3" bg="yellow-300 opacity-50" rounded-b rounded-r>
+        <div>
+          抽取除公共逻辑代码，整合成一个基础库进行发布。只需要改动一份代码，
+          然后重新发布上线
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-常规方法：copy
 <br>
-产生的问题：如果代码出现bug，改好之后就得去所有使用的地方进行覆盖
-<br>
-解决方案：抽取除公共逻辑代码，整合成一个基础库，进行发布，一旦需要改动，只需要改动一份代码，然后重新发布上线
 
 ---
 
@@ -206,10 +241,18 @@ A工具包版本是 v1.0.0，现在有多个项目都依赖于A工具包，但�
 
 <br>
 
+<!-- ./components/MonorepoTools.vue -->
+<MonorepoTools :count="10" m="t-4" />
+
+
+---
+layout: image-right
+image: ./assets/imgs/pic_pnpm.png
 ---
 
 # With pnpm
 
+pnpm-workspace.yaml
 
 ```
 packages:
@@ -221,6 +264,7 @@ packages:
   - '!**/test/**'
 ```
 
+定义了工作空间的根目录，并能够使从工作空间中包含/排除目录
 <br>
 
 [Learn more](https://pnpm.io/zh/motivation)
