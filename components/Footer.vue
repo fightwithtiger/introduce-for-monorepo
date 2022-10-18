@@ -1,12 +1,12 @@
 <template>
   <div flex="~" justify-between>
-    <div>
+    <div v-if="lName">
       <Link :to="lTo">{{ lName }}</Link>
     </div>
     <div v-if="centerText">
       {{ centerText }}
     </div>
-    <div>
+    <div v-if="rName">
       <Link :to="rTo">{{ rName }}</Link>
     </div>
   </div>
@@ -30,10 +30,6 @@ const props = defineProps({
     default: ''
   }
 })
-
-// console.log(props.left)
-
-
 </script>
 
 <style scoped>

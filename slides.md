@@ -3,7 +3,7 @@
 theme: seriph
 # random image from a curated Unsplash collection by Anthony
 # like them? see https://unsplash.com/collections/94734566/slidev
-background: https://source.unsplash.com/collection/94734566/1920x1080
+background: https://img2.baidu.com/it/u=2706010744,638812055&fm=253&fmt=auto&app=138&f=JPEG?w=750&h=500
 # apply any windi css classes to the current slide
 class: 'text-center'
 # https://sli.dev/custom/highlighters.html
@@ -34,10 +34,7 @@ Presentation slides for developers
 </div>
 
 <div class="abs-br m-6 flex gap-2">
-  <button @click="$slidev.nav.openInEditor()" title="Open in Editor" class="text-xl icon-btn opacity-50 !border-none !hover:text-white">
-    <carbon:edit />
-  </button>
-  <a href="https://github.com/slidevjs/slidev" target="_blank" alt="GitHub"
+  <a href="https://github.com/fightwithtiger/introduce-for-monorepo" target="_blank" alt="GitHub"
     class="text-xl icon-btn opacity-50 !border-none !hover:text-white">
     <carbon-logo-github />
   </a>
@@ -93,8 +90,8 @@ h1 {
 ```
 <br>
 
-<div v-click>
-相比于Polyrepo（一个项目一个仓库），Monorepo只会创建一个仓库，并在这个一个仓库里管理着多个项目代码。每一个项目有它单独的功能与作用，多个项目之间可能会有引用关系，最后通过最上层的项目进行统一管理
+<div v-click p="2" bg="sky-400 opacity-50" rounded font="mono">
+✔️相比于Polyrepo（一个项目一个仓库），Monorepo只会创建一个仓库，并在这个仓库里管理着多个项目代码。每一个项目有它单独的功能，多个项目之间可能会有引用关系，最后通过最上层的项目进行统一管理
 </div>
 
 <br>
@@ -111,7 +108,8 @@ h1 {
 
 Monorepo不是简单地code colocation，一个Monorepo项目需要处理好子项目之间的关系。如果一个仓库包含一个庞大的应用程序，而没有对内部离散部分进行划分和封装，那么它只是一个大仓库，而不是Monorepo
 
-
+---
+preload: false
 ---
 
 # Monorepo or Polyrepo ?
@@ -119,7 +117,12 @@ Monorepo不是简单地code colocation，一个Monorepo项目需要处理好子�
 <br>
 
 <div flex="~" justify-between>
-  <img block border="rounded" w="3/5" src="/assets/imgs/pic_polyrepo.jpg" />
+  <img block border="rounded" w="3/5" src="/assets/imgs/pic_polyrepo.jpg"
+    v-motion
+    :initial="{ x: -1000 }"
+    :enter="{ x: 0, opacity: 1, transition: { delay: 200, duration: 1000 } }"
+    :final="final"
+   />
 
   <div v-click>
     <div p="1" bg="sky-300 opacity-50" rounded font="mono">
@@ -128,8 +131,8 @@ Monorepo不是简单地code colocation，一个Monorepo项目需要处理好子�
     <br>
     <ul>
       <li><Link to="6">代码难以复用</Link></li>
-      <li><Link to="8">版本管理复杂</Link></li>
-      <li><Link to="9">项目基建混乱</Link></li>
+      <li><Link to="8">版本管理混乱</Link></li>
+      <li><Link to="9">项目基建复杂</Link></li>
     </ul>
   </div>
   
@@ -140,6 +143,20 @@ Monorepo不是简单地code colocation，一个Monorepo项目需要处理好子�
 <!-- ./components/Footer.vue -->
 <Footer lName="Why Monorepo ?" lTo="10" rName="Monorepo tool" rTo="11" />
 
+<script setup lang="ts">
+const final = {
+  x: 0,
+  y: 0,
+  rotate: 0,
+  scale: 1,
+  transition: {
+    type: 'spring',
+    damping: 10,
+    stiffness: 20,
+    mass: 2
+  }
+}
+</script>
 
 ---
 
@@ -184,39 +201,80 @@ Monorepo不是简单地code colocation，一个Monorepo项目需要处理好子�
 ---
 
 # 缺点
-
-基础库修改流程：
-1. 去修改一个工具函数的代码
-2. 发布1.1.1版本的新包
-3. 项目中安装新版本的 A。
-
-一个小问题的改动，引发流程重跑，同时多流程中容易出现意外bug
-
 <br>
 
-<Link to="5">Back to Monorepo or Polyrepo</Link>
+<div v-click>
+  <div>基础库修改流程：</div>
+  <br>
+  <pre>
+    1. 去修改一个1.1.0版本基础库代码
+    2. 发布1.1.1版本的新包
+    3. 项目中安装新版本1.1.1基础库
+  </pre>
+</div>
+
+<div
+  v-click
+  p-2 bg="red-500 opacity-50" rounded
+>
+  ⚠️一个小问题的改动，引发流程重跑，同时多流程中容易出现意外bug🕷️
+</div>
+
+<br>
+<br>
+<br>
+<br>
+
+<!-- ./components/Footer.vue -->
+<Footer lName="Back to Monorepo or Polyrepo" lTo="5?clicks=3" />
 
 ---
 
-# 版本管理
+# 版本管理混乱
 
 <br>
-在 MultiRepo 的开发方式下，
-A工具包版本是 v1.0.0，现在有多个项目都依赖于A工具包，但是A工具包在某次更新的时候发了一个break change 版本，和原来版本的 API 不完全兼容。但是某些依赖于A工具包的项目并没有及时升级A工具包版本，就会导致一些api调用报错。
+在 Polyrepo 的开发方式下:
+<br>
+<br>
+<div p="1" bg="yellow-300 opacity-50" rounded font="mono">
+A工具包版本是 v1.0.0，现在有多个项目都依赖于A工具包，但是A工具包在某次更新的时候发了一个
+<span bg="red-700" light:color="white">break change版本</span>
+，和原来版本的 API 不完全兼容。但是某些依赖于A工具包的项目并没有及时升级A工具包版本，就会导致一些api调用报错。
+</div>
+
+<div mt="5" p="1" bg="sky-300 opacity-50" rounded font="mono">
+A工具包版本是 v1.0.0，现在有多个项目都依赖于A工具包，但是A工具包在某次更新的时候发了一个
+<span bg="green-700" light:color="white">扩展原有API的版本</span>。但是某些依赖于A工具包的项目并没有及时升级A工具包版本，导致项目无法使用最新特性API。
+</div>
+
 
 <br>
-<Link to="5">Back to Monorepo or Polyrepo</Link>
+<br>
+<br>
+
+<!-- ./components/Footer.vue -->
+<Footer lName="Back to Monorepo or Polyrepo" lTo="5?clicks=1" />
 
 ---
 
-# 项目基建
+# 项目基建复杂
 
 <br>
-由于在 MultiRepo 当中，各个项目的工作流是割裂的，因此每个项目需要单独配置开发环境、配置 CI 流程、配置部署发布流程等等，甚至每个项目都有自己单独的一套脚手架工具。
-其实，很容易发现这些项目里的很多基建的逻辑都是重复的，如果是 10 个项目，就需要维护 10 份基建的流程，逻辑重复不说，各个项目间存在构建、部署和发布的规范不能统一的情况，这样维护起来就更加麻烦了。
+<br>
+<div mx="auto" p="3" bg="gray-600 opacity-50" rounded font="mono">
+  由于在 MultiRepo 当中，各个项目的工作流是割裂的，因此每个项目需要单独配置开发环境、配置 CI 流程、配置部署发布流程等等，甚至每个项目都有自己单独的一套脚手架工具。
+  其实，很容易发现这些项目里的很多基建的逻辑都是重复的，如果是 10 个项目，就需要维护 10 份基建的流程，逻辑重复不说，各个项目间存在构建、部署和发布的规范不能统一的情况，这样维护起来就更加麻烦了。
+</div>
+
 
 <br>
-<Link to="5">Back to Monorepo or Polyrepo</Link>
+<br>
+<br>
+<br>
+<br>
+
+<!-- ./components/Footer.vue -->
+<Footer lName="Back to Monorepo or Polyrepo" lTo="5?clicks=1" />
 
 ---
 
@@ -233,7 +291,9 @@ A工具包版本是 v1.0.0，现在有多个项目都依赖于A工具包，但�
 
 
 <br>
-<Link to="5">Back to Monorepo or Polyrepo</Link>
+
+<!-- ./components/Footer.vue -->
+<Footer lName="Back to Monorepo or Polyrepo" lTo="5?clicks=1" />
 
 ---
 
@@ -254,7 +314,7 @@ image: ./assets/imgs/pic_pnpm.png
 
 pnpm-workspace.yaml
 
-```
+```yaml {all|2-3|2-5|6-7|all}
 packages:
   # all packages in direct subdirs of packages/
   - 'packages/*'
@@ -264,19 +324,32 @@ packages:
   - '!**/test/**'
 ```
 
+<arrow v-click="3" x1="400" y1="320" x2="230" y2="250" color="#564" width="3" arrowSize="1" />
+
+<br>
+
 定义了工作空间的根目录，并能够使从工作空间中包含/排除目录
+<br>
+<br>
 <br>
 
 [Learn more](https://pnpm.io/zh/motivation)
+
+
 ---
 
 # 演示
 
 
-
+---
+layout: center
+class: text-center
 ---
 
-Thanks for watching !
+# Thanks for watching !
+
+参考：
+[1. 现代前端工程为什么越来越离不开 Monorepo?](https://sli.dev) · [2. monorepo.tools](https://monorepo.tools/#source-code-sharing)
 
 ---
 
