@@ -2,7 +2,7 @@
   "name": "introduce-for-monorepo",
   "private": true,
   "scripts": {
-    "build": "slidev build --out docs",
+    "build": "slidev build --out docs --base=\"introduce-for-monorepo\"",
     "dev": "slidev --open",
     "export": "slidev export"
   },
