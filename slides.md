@@ -130,9 +130,9 @@ preload: false
     </div>
     <br>
     <ul>
-      <li><Link to="6">代码难以复用</Link></li>
-      <li><Link to="8">版本管理混乱</Link></li>
-      <li><Link to="9">项目基建复杂</Link></li>
+      <li><a href="/./6">代码难以复用</a></li>
+      <li><a to="/./8">版本管理混乱</a></li>
+      <li><a to="/./9">项目基建复杂</a></li>
     </ul>
   </div>
   
